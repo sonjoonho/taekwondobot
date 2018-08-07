@@ -9,14 +9,14 @@
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
-from images_scraper.pipelines import StoreImgPipeline
+from image_scraper.pipelines import StoreImgPipeline
 
 BOT_NAME = 'image_scraper'
 
 SPIDER_MODULES = ['image_scraper.spiders']
 NEWSPIDER_MODULE = 'image_scraper.spiders'
 
-ITEM_PIPELINES = {'scrapy.pipelines.images.StoreImgPipeline': 1}
+ITEM_PIPELINES = {'image_scraper.pipelines.StoreImgPipeline': 1}
 
 IMAGES_STORE = "/home/joonho/Downloads/tkdimages"
 
