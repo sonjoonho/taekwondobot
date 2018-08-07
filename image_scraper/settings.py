@@ -19,12 +19,15 @@ NEWSPIDER_MODULE = 'image_scraper.spiders'
 ITEM_PIPELINES = {'image_scraper.pipelines.StoreImgPipeline': 1}
 
 IMAGES_STORE = "/home/joonho/Downloads/tkdimages"
+FILES_STORE = "/home/joonho/Downloads/tkdimages"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'image_scraper (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
+
+# LOG_LEVEL = "INFO"
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32

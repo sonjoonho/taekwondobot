@@ -6,27 +6,32 @@
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import os, os.path
 from scrapy.contrib.pipeline.images import ImagesPipeline
+import hashlib
+import scrapy
 
 class StoreImgPipeline(ImagesPipeline):
-    def item_completed(self, results, item, info):
-        # iterate over the local file paths of all downloaded images
-        for result in [x for ok, x in results if ok]:
-            path = result['path']
-            # here we create the session-path where the files should be in the end
-            # you'll have to change this path creation depending on your needs
-            target_path = os.path.join((item['album_path'], os.basename(path)))
+    def get_media_requests(self, item, info):
+        album_name = item["album_name"]
 
-            # try to move the file and raise exception if not possible
-            if not os.rename(path, target_path):
-                raise ImageException("Could not move image to target folder")
+        for image_url in item["image_urls"]:
 
-            # here we'll write out the result with the new path,
-            # if there is a result field on the item (just like the original code does)
-            if self.IMAGES_RESULT_FIELD in item.fields:
-                result['path'] = target_path
-                item[self.IMAGES_RESULT_FIELD].append(result)
+            request = scrapy.Request(url=image_url)
+            request.meta['album_name'] = album_name
+            yield request
 
-        return item
+        # return [Request(x) for x in item.get(self.images_urls_field, [])]
+
+    def file_path(self, request, response=None, info=None):
+
+        # check if called from image_key or file_key with url as first argument
+        url = request.url
+
+
+        _, image_guid = os.path.split(url)  # change to request.url after deprecation
+
+        path = "{}/{}".format(request.meta["album_name"], image_guid)
+        return path
+
 class ImageScraperPipeline(object):
     def process_item(self, item, spider):
         return item

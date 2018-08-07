@@ -13,4 +13,5 @@ class ImageScraperItem(scrapy.Item):
     # name = scrapy.Field()
     image_urls = scrapy.Field()
     images = scrapy.Field()
-    album_path = scrapy.Field()
+    album_name = scrapy.Field()
+    image_name = scrapy.Field()
