@@ -14,7 +14,7 @@ BOT_NAME = 'image_scraper'
 SPIDER_MODULES = ['image_scraper.spiders']
 NEWSPIDER_MODULE = 'image_scraper.spiders'
 
-ITEM_PIPELINES = {'scrapy.pipelines.images.ImagesPipeline': 1}
+ITEM_PIPELINES = {'scrapy.pipelines.images.StoreImgPipeline': 1}
 
 IMAGES_STORE = "/home/joonho/Downloads/tkdimages"
 
