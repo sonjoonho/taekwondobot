@@ -9,6 +9,8 @@
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
+from images_scraper.pipelines import StoreImgPipeline
+
 BOT_NAME = 'image_scraper'
 
 SPIDER_MODULES = ['image_scraper.spiders']
