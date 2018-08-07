@@ -19,9 +19,13 @@ class TaekwondobotSpider(scrapy.Spider):
     def parse_album(self, response):
         images = response.xpath('//*[@class="album"]/a/@href').extract()
         images = [urljoin("http://localhost:4000", image) for image in images]
+        album_name = response.xpath('//*[@id="splash"]/div/h2')
+
         print(images)
 
         item = ImageScraperItem()
+
+        item["album_path"] = album_name.replace(" ", "")
 
         item["image_urls"] = images
         yield item
